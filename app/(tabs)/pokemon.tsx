@@ -20,6 +20,7 @@ export default function Pokemon() {
       <Pressable onPress={handleFetchPokemon}>
         <Text>Genereate a Pokemon</Text>
       </Pressable>
+      {/* om pokemon har värde/inte är null, då visas pokemoncard */}
       {pokemon && <PokemonCard pokemon={pokemon} />}
     </View>
   );

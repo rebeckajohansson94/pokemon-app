@@ -15,6 +15,7 @@ export default function PokemonCard({
   return (
     <View>
       <View>
+        {/* om onclose/onfavourite är definerade (skickaas som prop), så visas dem */}
         {onClose && (
           <Pressable>
             <Text>X</Text>
