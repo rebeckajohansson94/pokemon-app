@@ -4,7 +4,7 @@ const url = "https://pokeapi.co/api/v2";
 
 // funktion som hämtar en lista av 20 pokemonnamn till pokedexet.
 export async function fetchPokemon(): Promise<PokemonListItem[]> {
-  // returnerar ett löfte om att typen är av typen Pokemon
+  // returnerar ett löfte om att värdet som returneras är en array av typen pokemonlistitem
   try {
     const response = await fetch(`${url}/pokemon?limit=20`);
     const data = await response.json();
