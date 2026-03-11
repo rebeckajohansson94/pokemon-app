@@ -1,4 +1,4 @@
-import { PokemonDetails, PokemonListItem } from "@/types/pokemon";
+import type { PokemonDetails, PokemonListItem } from "@/types/pokemon";
 
 const url = "https://pokeapi.co/api/v2";
 

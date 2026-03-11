@@ -2,7 +2,8 @@ import PokemonCard from "@/components/pokemon/PokemonCard";
 import { fetchPokemonDetails } from "@/services/api";
 import type { PokemonDetails } from "@/types/pokemon";
 import { useState } from "react";
-import { Pressable, Text, View } from "react-native";
+import { ImageBackground, Pressable, Text } from "react-native";
+import pokemonBackground from "../../assets/images/pokemon-bg.jpg";
 
 export default function Pokemon() {
   const [pokemon, setPokemon] = useState<PokemonDetails | null>(null);
@@ -15,13 +16,17 @@ export default function Pokemon() {
   }
 
   return (
-    <View>
+    <ImageBackground
+      source={pokemonBackground}
+      style={{ flex: 1 }}
+      resizeMode="cover"
+    >
       <Text>Pokemon</Text>
       <Pressable onPress={handleFetchPokemon}>
         <Text>Generate a Pokemon</Text>
       </Pressable>
       {/* om pokemon har värde/inte är null, då visas pokemoncard */}
       {pokemon && <PokemonCard pokemon={pokemon} />}
-    </View>
+    </ImageBackground>
   );
 }
