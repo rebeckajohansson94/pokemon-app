@@ -1,6 +1,6 @@
 import { Stack } from "expo-router";
 
-// Här wrappar jag hela appen i Stack, och anger att tabs ska ligga i vyn
+// sätter upp stack-navigationen för hela appen och gömmer den inbyggda headern för tabs-layouten
 export default function RootLayout() {
   return (
     <Stack>

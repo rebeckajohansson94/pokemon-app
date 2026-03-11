@@ -2,26 +2,32 @@ import { PokemonDetails, PokemonListItem } from "@/types/pokemon";
 
 const url = "https://pokeapi.co/api/v2";
 
-// funktion som hämtar en lista av 20 pokemonnamn till pokedexet.
+// hämtar en lista av 20 pokemonnamn till pokedexet.
 export async function fetchPokemon(): Promise<PokemonListItem[]> {
-  // returnerar ett löfte om att värdet som returneras är en array av typen pokemonlistitem
+  // returnerar ett promise om att värdet som returneras är en array av typen pokemonlistitem
   try {
     const response = await fetch(`${url}/pokemon?limit=20`);
     const data = await response.json();
 
-    return data.results; //returnerar hela arrayen
+    return data.results; // returnerar hela arrayen
   } catch (error) {
-    console.log("No Pokemon found!");
+    alert("No Pokemons found!");
     throw error;
   }
 }
 
-// hämtar pokemon med detaljer, används både via fetchrandompokemon (pokemon-tabben) + från pokedex listan med "läs mer" på vardera pokemon, som sedan skickar med dess url som argument
+// återanvändbar funktion som hämtar en pokemon med detaljer.
+// om pokemonUrl skickas in hämtas en specifik pokemon, annars genereras en random url.
+// pokemonUrl är optional och hanteras med en ternary.
 export async function fetchPokemonDetails(
-  pokemonUrl: string,
+  pokemonUrl?: string,
 ): Promise<PokemonDetails> {
   try {
-    const response = await fetch(pokemonUrl);
+    const finalUrl =
+      pokemonUrl !== undefined
+        ? pokemonUrl
+        : `${url}/pokemon/${Math.floor(Math.random() * 1000) + 1}`; // 1000 är temporär logik pga osäker på API'ets längd
+    const response = await fetch(finalUrl);
     const data = await response.json();
 
     // sparar den datan jag vill komma åt i ett objekt, returnerar sedan objektet
@@ -34,20 +40,12 @@ export async function fetchPokemonDetails(
       weight: data.weight,
       hp: data.stats[0].base_stat,
       ability: data.abilities[0].ability.name,
-      url: pokemonUrl,
+      url: finalUrl, // objektets url sätts till finalUrl, som antingen kommer vara random eller pokemonUrl
     };
     console.log(`name: ${pokemon.name}`);
     return pokemon;
   } catch (error) {
-    console.log("No Pokemon found!");
+    alert("No Pokemon found!");
     throw error;
   }
-}
-
-// anropas i pokemon-tabben för att först generera en unik url, som sedan hämtar en pokemon med detaljer från fetchpokemondetails
-export async function fetchRandomPokemon(): Promise<PokemonDetails> {
-  const randomId = Math.floor(Math.random() * 1025) + 1; // ger ett heltal mellan 1-1025. 1025 pga osäker hur många pokemons det finns i api'et, funderar på annan logik
-
-  const pokemonUrl = `${url}/pokemon/${randomId}`;
-  return fetchPokemonDetails(pokemonUrl);
 }
