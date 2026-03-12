@@ -6,12 +6,12 @@ const url = "https://pokeapi.co/api/v2";
 export async function fetchPokemon(): Promise<PokemonListItem[]> {
   // returnerar ett promise om att värdet som returneras är en array av typen pokemonlistitem
   try {
-    const response = await fetch(`${url}/pokemon?limit=20`);
+    const response = await fetch(`${url}/pokemon?limit=40`);
+    if (!response.ok) throw new Error("Failed to fetch");
     const data = await response.json();
 
     return data.results; // returnerar hela arrayen
   } catch (error) {
-    alert("No Pokemons found!");
     throw error;
   }
 }
@@ -28,6 +28,7 @@ export async function fetchPokemonDetails(
         ? pokemonUrl
         : `${url}/pokemon/${Math.floor(Math.random() * 1000) + 1}`; // 1000 är temporär logik pga osäker på API'ets längd
     const response = await fetch(finalUrl);
+    if (!response.ok) throw new Error("Failed to fetch");
     const data = await response.json();
 
     // sparar den datan jag vill komma åt i ett objekt, returnerar sedan objektet
@@ -45,7 +46,6 @@ export async function fetchPokemonDetails(
     console.log(`name: ${pokemon.name}`);
     return pokemon;
   } catch (error) {
-    alert("No Pokemon found!");
     throw error;
   }
 }
