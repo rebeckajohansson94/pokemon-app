@@ -1,6 +1,15 @@
 import { PokemonDetails } from "@/types/pokemon";
+import { getTypeColor } from "@/utils/pokemonColorPicker";
 import { BlurView } from "expo-blur";
-import { Image, Pressable, StyleSheet, Text, View } from "react-native";
+import {
+  Image,
+  ImageBackground,
+  Pressable,
+  StyleSheet,
+  Text,
+  View,
+} from "react-native";
+import cardImageBg from "../../assets/images/pokemon-image-bg.png";
 
 type PokemonCardProps = {
   pokemon: PokemonDetails;
@@ -15,8 +24,10 @@ export default function PokemonCard({
 }: PokemonCardProps) {
   return (
     <BlurView intensity={60} style={styles.blurFrame}>
-      <View style={styles.card}>
-        <View style={styles.topRow}>
+      <View
+        style={[styles.card, { backgroundColor: getTypeColor(pokemon.type) }]} //anropar getTypeColor och skickar med pokemonens type för att sätta den färg som matchar typen
+      >
+        <View style={styles.row}>
           {onFavourite && (
             <Pressable onPress={() => onFavourite(pokemon)}>
               <Text style={styles.icon}>♡</Text>
@@ -34,9 +45,9 @@ export default function PokemonCard({
           <Text style={styles.hp}>HP {pokemon.hp}</Text>
         </View>
 
-        <View style={styles.imageFrame}>
+        <ImageBackground source={cardImageBg} style={styles.imageFrame}>
           <Image source={{ uri: pokemon.image }} style={styles.image} />
-        </View>
+        </ImageBackground>
 
         <View style={styles.row}>
           <Text style={styles.label}>Type</Text>
@@ -61,12 +72,12 @@ export default function PokemonCard({
 
 const styles = StyleSheet.create({
   blurFrame: {
-    borderRadius: 24,
+    borderRadius: 25,
     overflow: "hidden",
     padding: 16,
+    width: 315,
   },
   card: {
-    backgroundColor: "rgba(80, 140, 210, 0.85)",
     borderRadius: 16,
     borderWidth: 5,
     borderColor: "#c0c0c0",
@@ -74,10 +85,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: 25,
     paddingVertical: 20,
     paddingTop: 12,
-  },
-  topRow: {
-    flexDirection: "row",
-    justifyContent: "space-between",
   },
   icon: {
     fontSize: 20,
@@ -99,24 +106,25 @@ const styles = StyleSheet.create({
     color: "#fff",
   },
   label: {
-    color: "#ddd",
+    color: "#fff",
     fontSize: 13,
   },
   value: {
     color: "#fff",
     fontSize: 13,
     textTransform: "capitalize",
+    fontWeight: "600",
   },
   imageFrame: {
     alignItems: "center",
-    borderWidth: 3,
+    borderWidth: 4,
     borderColor: "#c0c0c0",
     borderRadius: 8,
     padding: 8,
-    backgroundColor: "rgba(255,255,255,0.15)",
+    overflow: "hidden",
   },
   image: {
-    width: 160,
-    height: 160,
+    width: 190,
+    height: 190,
   },
 });

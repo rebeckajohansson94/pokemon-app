@@ -26,7 +26,7 @@ export async function fetchPokemonDetails(
     const finalUrl =
       pokemonUrl !== undefined
         ? pokemonUrl
-        : `${url}/pokemon/${Math.floor(Math.random() * 1000) + 1}`; // 1000 är temporär logik pga osäker på API'ets längd
+        : `${url}/pokemon/${Math.floor(Math.random() * 1025) + 1}`; // slumpar ett id mellan 1-1025, högsta giltiga id i api'et
     const response = await fetch(finalUrl);
     if (!response.ok) throw new Error("Failed to fetch");
     const data = await response.json();

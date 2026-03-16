@@ -2,6 +2,7 @@ import PokedexList from "@/components/pokedex/PokedexList";
 import PokedexModal from "@/components/pokedex/PokedexModal";
 import usePokedex from "@/hooks/usePokedex";
 import { ImageBackground, Pressable, Text, View } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 import pokedexBackGround from "../../assets/images/pokedex-img.png";
 
 export default function Pokedex() {
@@ -20,21 +21,23 @@ export default function Pokedex() {
       style={{ flex: 1 }}
       resizeMode="cover"
     >
-      <Text>Pokedex</Text>
-      <PokedexModal
-        selectedPokemon={selectedPokemon}
-        onClose={handleOnClose}
-        onFavourite={handleFavourite}
-      />
-      <View>
-        <Pressable onPress={() => setShowFavourites(false)}>
-          <Text>List</Text>
-        </Pressable>
-        <Pressable onPress={() => setShowFavourites(true)}>
-          <Text>Show Favourites</Text>
-        </Pressable>
-      </View>
-      <PokedexList pokemon={displayedList} onReadMore={handleReadMore} />
+      <SafeAreaView>
+        <Text>Pokedex</Text>
+        <PokedexModal
+          selectedPokemon={selectedPokemon}
+          onClose={handleOnClose}
+          onFavourite={handleFavourite}
+        />
+        <View>
+          <Pressable onPress={() => setShowFavourites(false)}>
+            <Text>List</Text>
+          </Pressable>
+          <Pressable onPress={() => setShowFavourites(true)}>
+            <Text>Show Favourites</Text>
+          </Pressable>
+        </View>
+        <PokedexList pokemon={displayedList} onReadMore={handleReadMore} />
+      </SafeAreaView>
     </ImageBackground>
   );
 }

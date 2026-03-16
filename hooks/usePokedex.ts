@@ -4,12 +4,12 @@ import { useEffect, useState } from "react";
 
 // custom hook som samlar all state + logik för pokedex och dess children
 export default function usePokedex() {
-  const [pokemonList, setPokemonList] = useState<PokemonListItem[]>([]);
-  const [selectedPokemon, setSelectedPokemon] = useState<PokemonDetails | null>(
+  const [pokemonList, setPokemonList] = useState<PokemonListItem[]>([]); // state som sparar pokemons i lista
+  const [selectedPokemon, setSelectedPokemon] = useState<PokemonDetails | null>( //state som hanterar modalen
     null,
   );
-  const [showFavourites, setShowFavourites] = useState(false);
-  const [favourites, setFavourites] = useState<PokemonListItem[]>([]);
+  const [showFavourites, setShowFavourites] = useState(false); // state som togglar vyn mellan alla pokemons och liked-listan
+  const [favourites, setFavourites] = useState<PokemonListItem[]>([]); // state som sparar likeade pokemons i lista
 
   // hämtar en lista av pokemons vid mount av sidan. async-funktionen definieras inuti useEffect eftersom den inte behöver nås utifrån utan körs bara vid mount. listan sparas i pokemonList-state som sedan används i displayedList
   useEffect(() => {

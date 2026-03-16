@@ -1,4 +1,5 @@
-import { Image, ImageBackground, Text } from "react-native";
+import { Image, ImageBackground, StatusBar, Text } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 import backgroundImage from "../../assets/images/home-bg.png";
 import pokemonLogo from "../../assets/images/pokemon-logo.png";
 
@@ -9,8 +10,11 @@ export default function Home() {
       style={{ flex: 1 }}
       resizeMode="cover"
     >
-      <Image source={pokemonLogo} style={{ width: 250, height: 250 }} />
-      <Text>Homeeeee</Text>
+      <StatusBar />
+      <SafeAreaView>
+        <Image source={pokemonLogo} style={{ width: 280, height: 280 }} />
+        <Text>Homeeeee</Text>
+      </SafeAreaView>
     </ImageBackground>
   );
 }

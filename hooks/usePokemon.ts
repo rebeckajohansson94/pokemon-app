@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 export default function usePokemon() {
   const [pokemon, setPokemon] = useState<PokemonDetails | null>(null);
 
-  // används för att hämta random pokemon. async/await behövs för att vänta på att datan hämtas innan state uppdateras. (separerat från useEFFect pga onPress kommer inte åt en async funktion inuti en useEffect)
+  // används för att hämta random pokemon. async/await behövs för att vänta på att datan hämtas innan state uppdateras. (separerat från useEffect pga onPress kommer inte åt en async funktion inuti en useEffect)
   async function handleFetchPokemon() {
     const pokemonData = await fetchPokemonDetails();
     setPokemon(pokemonData);

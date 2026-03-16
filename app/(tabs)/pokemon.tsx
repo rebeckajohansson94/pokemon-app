@@ -1,6 +1,7 @@
 import PokemonCard from "@/components/pokemon/PokemonCard";
 import usePokemon from "@/hooks/usePokemon";
 import { ImageBackground, Pressable, Text } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 import pokemonBackground from "../../assets/images/pokemon-bg.jpg";
 
 export default function Pokemon() {
@@ -12,13 +13,15 @@ export default function Pokemon() {
       style={{ flex: 1 }}
       resizeMode="cover"
     >
-      <Text>Pokémon roulette</Text>
+      <SafeAreaView>
+        <Text>Pokémon roulette</Text>
 
-      {/* om pokemon har värde/inte är null, då visas pokemoncard */}
-      {pokemon && <PokemonCard pokemon={pokemon} />}
-      <Pressable onPress={handleFetchPokemon}>
-        <Text>Generate a new Pokémon!</Text>
-      </Pressable>
+        {/* om pokemon har värde/inte är null, då visas pokemoncard */}
+        {pokemon && <PokemonCard pokemon={pokemon} />}
+        <Pressable onPress={handleFetchPokemon}>
+          <Text>Generate a new Pokémon!</Text>
+        </Pressable>
+      </SafeAreaView>
     </ImageBackground>
   );
 }
