@@ -1,5 +1,8 @@
+import { colors } from "@/constants/colors";
 import { PokemonDetails } from "@/types/pokemon";
 import { getTypeColor } from "@/utils/pokemonColorPicker";
+import AntDesign from "@expo/vector-icons/AntDesign";
+import FontAwesome from "@expo/vector-icons/FontAwesome";
 import { BlurView } from "expo-blur";
 import {
   Image,
@@ -13,29 +16,39 @@ import cardImageBg from "../../assets/images/pokemon-image-bg.png";
 
 type PokemonCardProps = {
   pokemon: PokemonDetails;
-  onClose?: () => void;
+  closeModal?: () => void;
   onFavourite?: (pokemon: PokemonDetails) => void;
+  isFavourite?: boolean;
 };
 
 export default function PokemonCard({
   pokemon,
-  onClose,
+  closeModal,
   onFavourite,
+  isFavourite,
 }: PokemonCardProps) {
   return (
     <BlurView intensity={60} style={styles.blurFrame}>
       <View
-        style={[styles.card, { backgroundColor: getTypeColor(pokemon.type) }]} //anropar getTypeColor och skickar med pokemonens type för att sätta den färg som matchar typen
+        style={[styles.card, { backgroundColor: getTypeColor(pokemon.type) }]}
       >
         <View style={styles.row}>
           {onFavourite && (
             <Pressable onPress={() => onFavourite(pokemon)}>
-              <Text style={styles.icon}>♡</Text>
+              <Text style={styles.icon}>
+                <FontAwesome
+                  name={isFavourite ? "heart" : "heart-o"}
+                  size={24}
+                  color={isFavourite ? colors.accent : colors.primary}
+                />
+              </Text>
             </Pressable>
           )}
-          {onClose && (
-            <Pressable onPress={onClose}>
-              <Text style={styles.icon}>✕</Text>
+          {closeModal && (
+            <Pressable onPress={closeModal}>
+              <Text style={styles.icon}>
+                <AntDesign name="close" size={24} color="white" />
+              </Text>
             </Pressable>
           )}
         </View>
@@ -50,20 +63,20 @@ export default function PokemonCard({
         </ImageBackground>
 
         <View style={styles.row}>
-          <Text style={styles.label}>Type</Text>
-          <Text style={styles.value}>{pokemon.type}</Text>
+          <Text style={styles.stats}>Type</Text>
+          <Text style={[styles.stats, styles.value]}>{pokemon.type}</Text>
         </View>
         <View style={styles.row}>
-          <Text style={styles.label}>Ability</Text>
-          <Text style={styles.value}>{pokemon.ability}</Text>
+          <Text style={styles.stats}>Ability</Text>
+          <Text style={[styles.stats, styles.value]}>{pokemon.ability}</Text>
         </View>
         <View style={styles.row}>
-          <Text style={styles.label}>Height</Text>
-          <Text style={styles.value}>{pokemon.height}</Text>
+          <Text style={styles.stats}>Height</Text>
+          <Text style={[styles.stats, styles.value]}>{pokemon.height}</Text>
         </View>
         <View style={styles.row}>
-          <Text style={styles.label}>Weight</Text>
-          <Text style={styles.value}>{pokemon.weight}</Text>
+          <Text style={styles.stats}>Weight</Text>
+          <Text style={[styles.stats, styles.value]}>{pokemon.weight}</Text>
         </View>
       </View>
     </BlurView>
@@ -80,7 +93,7 @@ const styles = StyleSheet.create({
   card: {
     borderRadius: 16,
     borderWidth: 5,
-    borderColor: "#c0c0c0",
+    borderColor: colors.silver,
     gap: 10,
     paddingHorizontal: 25,
     paddingVertical: 20,
@@ -88,7 +101,7 @@ const styles = StyleSheet.create({
   },
   icon: {
     fontSize: 20,
-    color: "#fff",
+    color: colors.primary,
   },
   row: {
     flexDirection: "row",
@@ -97,28 +110,26 @@ const styles = StyleSheet.create({
   name: {
     fontSize: 18,
     fontWeight: "bold",
-    color: "#fff",
+    color: colors.primary,
     textTransform: "capitalize",
   },
   hp: {
     fontSize: 16,
     fontWeight: "bold",
-    color: "#fff",
+    color: colors.primary,
   },
-  label: {
-    color: "#fff",
+  stats: {
+    color: colors.primary,
     fontSize: 13,
   },
   value: {
-    color: "#fff",
-    fontSize: 13,
     textTransform: "capitalize",
     fontWeight: "600",
   },
   imageFrame: {
     alignItems: "center",
     borderWidth: 4,
-    borderColor: "#c0c0c0",
+    borderColor: colors.silver,
     borderRadius: 8,
     padding: 8,
     overflow: "hidden",

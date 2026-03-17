@@ -4,27 +4,26 @@ import PokemonCard from "../pokemon/PokemonCard";
 
 type PokedexModalProps = {
   selectedPokemon: PokemonDetails | null;
-  onClose: () => void;
+  closeModal: () => void;
   onFavourite: (pokemon: PokemonDetails) => void;
+  isFavourite: boolean;
 };
 
 export default function PokedexModal({
   selectedPokemon,
-  onClose,
+  closeModal,
   onFavourite,
+  isFavourite,
 }: PokedexModalProps) {
   return (
-    <Modal
-      animationType="slide"
-      transparent={true}
-      visible={selectedPokemon !== null}
-    >
+    <Modal animationType="slide" transparent={true}>
       <View style={styles.modal}>
         {selectedPokemon && (
           <PokemonCard
             pokemon={selectedPokemon}
-            onClose={onClose}
+            closeModal={closeModal}
             onFavourite={onFavourite}
+            isFavourite={isFavourite}
           />
         )}
       </View>

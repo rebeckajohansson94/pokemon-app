@@ -1,4 +1,4 @@
-// funktion som ger en viss färg utefter pokemonens type, matchar färg med type som skickas i argumentet
+// case-sats som ger en viss färg utefter pokemonens type, matchar färg med type som skickas i argumentet
 
 export function getTypeColor(type: string) {
   switch (type) {

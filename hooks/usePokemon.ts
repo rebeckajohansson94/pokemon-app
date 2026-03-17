@@ -5,20 +5,33 @@ import { useEffect, useState } from "react";
 // custom hook som samlar state + logik för pokemon och dess children
 export default function usePokemon() {
   const [pokemon, setPokemon] = useState<PokemonDetails | null>(null);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
 
   // används för att hämta random pokemon. async/await behövs för att vänta på att datan hämtas innan state uppdateras. (separerat från useEffect pga onPress kommer inte åt en async funktion inuti en useEffect)
-  async function handleFetchPokemon() {
-    const pokemonData = await fetchPokemonDetails();
-    setPokemon(pokemonData);
+  async function fetchRandomPokemon() {
+    try {
+      setLoading(true);
+      setError("");
+
+      const pokemonData = await fetchPokemonDetails();
+      setPokemon(pokemonData);
+    } catch {
+      setError("Could not load Pokémon.");
+    } finally {
+      setLoading(false);
+    }
   }
 
-  // används för att hämta en random pokemon vid mount av sidan.
+  // hämtar en random pokemon vid mount, fetchRandomPokemon återanvänds sedan vid knapptryckning
   useEffect(() => {
-    handleFetchPokemon();
+    fetchRandomPokemon();
   }, []);
 
   return {
     pokemon,
-    handleFetchPokemon,
+    fetchRandomPokemon,
+    loading,
+    error,
   };
 }
