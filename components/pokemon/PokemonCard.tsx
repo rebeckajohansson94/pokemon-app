@@ -17,14 +17,14 @@ import cardImageBg from "../../assets/images/pokemon-image-bg.png";
 type PokemonCardProps = {
   pokemon: PokemonDetails;
   closeModal?: () => void;
-  onFavourite?: (pokemon: PokemonDetails) => void;
+  toggleFavourite?: (pokemon: PokemonDetails) => void;
   isFavourite?: boolean;
 };
 
 export default function PokemonCard({
   pokemon,
   closeModal,
-  onFavourite,
+  toggleFavourite,
   isFavourite,
 }: PokemonCardProps) {
   return (
@@ -33,8 +33,8 @@ export default function PokemonCard({
         style={[styles.card, { backgroundColor: getTypeColor(pokemon.type) }]}
       >
         <View style={styles.row}>
-          {onFavourite && (
-            <Pressable onPress={() => onFavourite(pokemon)}>
+          {toggleFavourite && (
+            <Pressable onPress={() => toggleFavourite(pokemon)}>
               <Text style={styles.icon}>
                 <FontAwesome
                   name={isFavourite ? "heart" : "heart-o"}

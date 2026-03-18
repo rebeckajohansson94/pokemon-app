@@ -7,8 +7,8 @@ export async function fetchPokemon(): Promise<PokemonListItem[]> {
   // returnerar ett promise om att värdet som returneras är en array av typen pokemonlistitem
   const response = await fetch(`${url}/pokemon?limit=100`);
   if (!response.ok) throw new Error("Failed to fetch pokemon");
-  const data = await response.json();
 
+  const data = await response.json();
   return data.results; // returnerar hela arrayen
 }
 
@@ -18,10 +18,9 @@ export async function fetchPokemon(): Promise<PokemonListItem[]> {
 export async function fetchPokemonDetails(
   pokemonUrl?: string,
 ): Promise<PokemonDetails> {
-  const finalUrl =
-    pokemonUrl !== undefined
-      ? pokemonUrl
-      : `${url}/pokemon/${Math.floor(Math.random() * 1025) + 1}`; // slumpar ett id mellan 1-1025, högsta giltiga id i api'et
+  const finalUrl = pokemonUrl
+    ? pokemonUrl
+    : `${url}/pokemon/${Math.floor(Math.random() * 1025) + 1}`; // slumpar ett id mellan 1-1025, högsta giltiga id i api'et
   const response = await fetch(finalUrl);
   if (!response.ok) throw new Error("Could not fetch pokemon details");
   const data = await response.json();
@@ -38,6 +37,5 @@ export async function fetchPokemonDetails(
     ability: data.abilities[0].ability.name,
     url: finalUrl, // objektets url sätts till finalUrl, som antingen kommer vara random eller pokemonUrl
   };
-  console.log(`name: ${pokemon.name}`);
   return pokemon;
 }

@@ -7,6 +7,7 @@ export default function useHome() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
+  // hämtar pikachu vid mount och sparar i pokemon-state. try/catch hanterar eventuella fel, finally säkerställer att loading alltid stängs av
   useEffect(() => {
     async function loadPokemon() {
       try {

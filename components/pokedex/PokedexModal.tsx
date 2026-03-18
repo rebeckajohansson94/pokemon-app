@@ -5,14 +5,14 @@ import PokemonCard from "../pokemon/PokemonCard";
 type PokedexModalProps = {
   selectedPokemon: PokemonDetails | null;
   closeModal: () => void;
-  onFavourite: (pokemon: PokemonDetails) => void;
+  toggleFavourite: (pokemon: PokemonDetails) => void;
   isFavourite: boolean;
 };
 
 export default function PokedexModal({
   selectedPokemon,
   closeModal,
-  onFavourite,
+  toggleFavourite,
   isFavourite,
 }: PokedexModalProps) {
   return (
@@ -22,7 +22,7 @@ export default function PokedexModal({
           <PokemonCard
             pokemon={selectedPokemon}
             closeModal={closeModal}
-            onFavourite={onFavourite}
+            toggleFavourite={toggleFavourite}
             isFavourite={isFavourite}
           />
         )}

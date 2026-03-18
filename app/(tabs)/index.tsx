@@ -1,3 +1,4 @@
+import ErrorMessage from "@/components/ui/ErrorMessage";
 import LoadingSpinner from "@/components/ui/LoadingSpinner";
 import { colors } from "@/constants/colors";
 import useHome from "@/hooks/useHome";
@@ -43,7 +44,7 @@ export default function Home() {
         {loading ? (
           <LoadingSpinner />
         ) : error ? (
-          <Text>{error}</Text>
+          <ErrorMessage message={error} />
         ) : (
           pokemon && (
             <Image

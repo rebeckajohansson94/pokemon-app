@@ -23,7 +23,7 @@ export default function usePokemon() {
     }
   }
 
-  // hämtar en random pokemon vid mount, fetchRandomPokemon återanvänds sedan vid knapptryckning
+  // hämtar en random pokemon vid mount av sidan, fetchRandomPokemon återanvänds sedan vid knapptryckning
   useEffect(() => {
     fetchRandomPokemon();
   }, []);

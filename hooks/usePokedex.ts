@@ -2,18 +2,18 @@ import { fetchPokemon, fetchPokemonDetails } from "@/services/api";
 import type { PokemonDetails, PokemonListItem } from "@/types/pokemon";
 import { useEffect, useState } from "react";
 
-// custom hook som samlar all state + logik för pokedex och dess children
+// custom hook som samlar state och logik för pokedex-vyn
 export default function usePokedex() {
-  const [pokemonList, setPokemonList] = useState<PokemonListItem[]>([]); // state som sparar pokemons i lista
-  const [selectedPokemon, setSelectedPokemon] = useState<PokemonDetails | null>( //state som hanterar modalen
+  const [pokemonList, setPokemonList] = useState<PokemonListItem[]>([]); // lista med alla pokémons som hämtas från api'et.
+  const [selectedPokemon, setSelectedPokemon] = useState<PokemonDetails | null>(
     null,
-  );
-  const [showFavourites, setShowFavourites] = useState(false); // state som togglar vyn mellan alla pokemons och liked-listan
-  const [favouriteList, setFavouriteList] = useState<PokemonListItem[]>([]); // state som sparar likeade pokemons i lista
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
+  ); // den pokémon som visas i modalen, modalen visas om objekt finns - annars inte
+  const [showFavourites, setShowFavourites] = useState(false); // state som togglar vyn mellan alla pokemons och favoritlistan
+  const [favouriteList, setFavouriteList] = useState<PokemonListItem[]>([]); // lista med pokémons som användaren markerat som favoriter.
+  const [loading, setLoading] = useState(false); // visar om data håller på att hämtas.
+  const [error, setError] = useState(""); // sparar felmeddelande om ett api-anrop misslyckas.
 
-  // hämtar en lista av pokemons vid mount av sidan. async-funktionen definieras inuti useEffect eftersom den inte behöver nås utifrån utan körs bara vid mount. listan sparas i pokemonList-state som sedan används i displayedList
+  // hämtar en lista av pokémons när sidan mountas. listan sparas i pokemonList som sedan används i displayedList
   useEffect(() => {
     async function loadPokemonList() {
       setLoading(true);
@@ -23,7 +23,7 @@ export default function usePokedex() {
         const data = await fetchPokemon();
         setPokemonList(data);
       } catch {
-        setError("Could not fetch pokemonlist.");
+        setError("Could not load pokemonlist.");
       } finally {
         setLoading(false);
       }
@@ -31,7 +31,7 @@ export default function usePokedex() {
     loadPokemonList();
   }, []);
 
-  // får in url från PokedexList via "read more", skickar den till fetchPokemonDetails och sparar svaret i selectedPokemon. när selectedPokemon får ett värde öppnas modalen
+  // hämtar detaljer för den pokémon som blivit klickad på, och sparar den i selectedPokemon så att modalen kan visa rätt innehåll.
   async function handleReadMore(url: string) {
     setError("");
     setLoading(true);
@@ -46,12 +46,11 @@ export default function usePokedex() {
     }
   }
 
-  // stänger modalen genom att sätta selectedPokemon till null
   function closeModal() {
     setSelectedPokemon(null);
   }
 
-  // togglar favourites - kollar först om pokemonen redan är sparad (för att undvika dubletter). om den finns: ta bort. om den inte finns: lägg till i arrayen
+  // lägger till eller tar bort en pokémon från favoritlistan, beroende på om den redan finns där.
   function toggleFavourite(pokemon: PokemonDetails) {
     const pokemonIsFavourite = favouriteList.some(
       (fav) => fav.url === pokemon.url,
@@ -68,12 +67,12 @@ export default function usePokedex() {
     }
   }
 
-  // variabel som används bara för modalen, för att veta om den valda pokemonen redan är sparad.
+  // variabel som blir true om pokémonen som visas i modalen redan finns i favoritlistan. (används för stylingen, att visa rätt hjärta)
   const isFavourite = favouriteList.some(
     (fav) => fav.url === selectedPokemon?.url,
   );
 
-  // bestämmer vilken lista som visas - favourites om showFavourites är true, annars pokemonList
+  // bestämmer vilken lista som ska visas i ui't, alla pokémons eller bara favoriter.
   const displayedList = showFavourites ? favouriteList : pokemonList;
 
   return {

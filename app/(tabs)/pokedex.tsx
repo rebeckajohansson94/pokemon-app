@@ -1,5 +1,6 @@
 import PokedexList from "@/components/pokedex/PokedexList";
 import PokedexModal from "@/components/pokedex/PokedexModal";
+import ErrorMessage from "@/components/ui/ErrorMessage";
 import LoadingSpinner from "@/components/ui/LoadingSpinner";
 import usePokedex from "@/hooks/usePokedex";
 import { ImageBackground, Pressable, Text, View } from "react-native";
@@ -31,7 +32,7 @@ export default function Pokedex() {
           <PokedexModal
             selectedPokemon={selectedPokemon}
             closeModal={closeModal}
-            onFavourite={toggleFavourite}
+            toggleFavourite={toggleFavourite}
             isFavourite={isFavourite}
           />
         )}
@@ -46,7 +47,7 @@ export default function Pokedex() {
         {loading ? (
           <LoadingSpinner />
         ) : error ? (
-          <Text>{error}</Text>
+          <ErrorMessage message={error} />
         ) : (
           <PokedexList pokemon={displayedList} onReadMore={handleReadMore} />
         )}

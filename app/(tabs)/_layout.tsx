@@ -16,7 +16,7 @@ export default function TabsLayout() {
         tabBarStyle: styles.tabBar,
         tabBarLabelStyle: styles.tabBarLabel,
         tabBarBackground: () => (
-          <BlurView intensity={50} style={styles.tabBarBackground} />
+          <BlurView intensity={60} style={styles.tabBarBackground} />
         ),
       }}
     >
@@ -54,11 +54,15 @@ export default function TabsLayout() {
 const styles = StyleSheet.create({
   tabBar: {
     position: "absolute",
-    backgroundColor: "transparent",
+    backgroundColor: "#4d4d4d50",
     paddingTop: 8,
     paddingBottom: 8,
   },
-  tabBarLabel: { fontSize: 12, marginTop: 5 },
+  tabBarLabel: {
+    fontSize: 12,
+    marginTop: 5,
+    fontWeight: "bold",
+  },
   tabBarBackground: {
     flex: 1,
   },
