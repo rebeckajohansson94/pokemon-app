@@ -7,8 +7,9 @@ import { ImageBackground, Pressable, StyleSheet, Text } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import pokemonBackground from "../../assets/images/pokemon-bg.jpg";
 
+// Screen that fetches and displays a random Pokémon, the user can generate a new random Pokémon by pressing the button.
 export default function Pokemon() {
-  const { pokemon, fetchRandomPokemon, loading, error } = usePokemon(); // anropar usePokemon & destructar ut statet + funktionen jag behöver i komponenten
+  const { pokemon, fetchRandomPokemon, loading, error } = usePokemon(); // Calls the usePokemon hook and destructures the states and function needed in this screen
 
   return (
     <ImageBackground

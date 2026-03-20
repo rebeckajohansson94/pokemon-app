@@ -1,6 +1,6 @@
 import { Stack } from "expo-router";
 
-// använder rootlayout enbart för att kunna dölja stack-headern, navigering i appen sköts enbart via tabs.
+// Root layout is used to hide the default stack header, all navigation in the app is handled through the tab navigation.
 export default function RootLayout() {
   return <Stack screenOptions={{ headerShown: false }} />;
 }

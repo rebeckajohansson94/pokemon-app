@@ -8,6 +8,7 @@ type PokedexCardProps = {
   onReadMore: (url: string) => void;
 };
 
+// Card component used in the Pokédex list, displays the Pokémon name and a button to view more details.
 export default function PokedexCard({ pokemon, onReadMore }: PokedexCardProps) {
   return (
     <BlurView intensity={60} style={styles.card}>
@@ -31,7 +32,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
     borderRadius: 16,
     marginBottom: 12,
-    marginHorizontal: 10,
     overflow: "hidden",
   },
   name: {

@@ -2,18 +2,19 @@ import { fetchPokemon, fetchPokemonDetails } from "@/services/api";
 import type { PokemonDetails, PokemonListItem } from "@/types/pokemon";
 import { useEffect, useState } from "react";
 
-// custom hook som samlar state och logik för pokedex-vyn
+// Custom hook that handles state and logic for the Pokédex screen.
 export default function usePokedex() {
-  const [pokemonList, setPokemonList] = useState<PokemonListItem[]>([]); // lista med alla pokémons som hämtas från api'et.
+  // States used for the Pokémon list, selected Pokémon, favourites, loading and error handling.
+  const [pokemonList, setPokemonList] = useState<PokemonListItem[]>([]);
   const [selectedPokemon, setSelectedPokemon] = useState<PokemonDetails | null>(
     null,
-  ); // den pokémon som visas i modalen, modalen visas om objekt finns - annars inte
-  const [showFavourites, setShowFavourites] = useState(false); // state som togglar vyn mellan alla pokemons och favoritlistan
-  const [favouriteList, setFavouriteList] = useState<PokemonListItem[]>([]); // lista med pokémons som användaren markerat som favoriter.
-  const [loading, setLoading] = useState(false); // visar om data håller på att hämtas.
-  const [error, setError] = useState(""); // sparar felmeddelande om ett api-anrop misslyckas.
+  );
+  const [showFavourites, setShowFavourites] = useState(false);
+  const [favouriteList, setFavouriteList] = useState<PokemonListItem[]>([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
 
-  // hämtar en lista av pokémons när sidan mountas. listan sparas i pokemonList som sedan används i displayedList
+  // Fetches the Pokémon list on initial render and stores it in state.
   useEffect(() => {
     async function loadPokemonList() {
       setLoading(true);
@@ -23,7 +24,7 @@ export default function usePokedex() {
         const data = await fetchPokemon();
         setPokemonList(data);
       } catch {
-        setError("Could not load pokemonlist.");
+        setError("Could not load pokemon list.");
       } finally {
         setLoading(false);
       }
@@ -31,7 +32,7 @@ export default function usePokedex() {
     loadPokemonList();
   }, []);
 
-  // hämtar detaljer för den pokémon som blivit klickad på, och sparar den i selectedPokemon så att modalen kan visa rätt innehåll.
+  // Fetches details for the selected Pokémon using its URL and stores it so the modal can display the Pokémon information.
   async function handleReadMore(url: string) {
     setError("");
     setLoading(true);
@@ -40,17 +41,18 @@ export default function usePokedex() {
       const data = await fetchPokemonDetails(url);
       setSelectedPokemon(data);
     } catch {
-      setError("Could not fetch pokemondetails.");
+      setError("Could not fetch pokemon details.");
     } finally {
       setLoading(false);
     }
   }
 
+  // Closes the modal by resetting the selected Pokémon state to null.
   function closeModal() {
     setSelectedPokemon(null);
   }
 
-  // lägger till eller tar bort en pokémon från favoritlistan, beroende på om den redan finns där.
+  // Adds or removes a Pokémon from the favourites list, depending on whether it already exists in the list.
   function toggleFavourite(pokemon: PokemonDetails) {
     const pokemonIsFavourite = favouriteList.some(
       (fav) => fav.url === pokemon.url,
@@ -67,12 +69,12 @@ export default function usePokedex() {
     }
   }
 
-  // variabel som blir true om pokémonen som visas i modalen redan finns i favoritlistan. (används för stylingen, att visa rätt hjärta)
+  // Checks if the selected Pokémon is in the favourites list, used in the modal to display the correct heart icon.
   const isFavourite = favouriteList.some(
     (fav) => fav.url === selectedPokemon?.url,
   );
 
-  // bestämmer vilken lista som ska visas i ui't, alla pokémons eller bara favoriter.
+  // Variable used for deciding whether to show all Pokémon or only favourites.
   const displayedList = showFavourites ? favouriteList : pokemonList;
 
   return {

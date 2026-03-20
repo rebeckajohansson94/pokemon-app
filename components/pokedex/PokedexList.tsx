@@ -7,6 +7,7 @@ type PokedexListProps = {
   onReadMore: (url: string) => void;
 };
 
+// Component that renders a list of Pokémon using FlatList, and displays each item as a PokedexCard.
 export default function PokedexList({ pokemon, onReadMore }: PokedexListProps) {
   return (
     <View>

@@ -5,6 +5,7 @@ type ErrorMessageProps = {
   message: string;
 };
 
+// Reusable component used to display error messages in the app.
 export default function ErrorMessage({ message }: ErrorMessageProps) {
   return (
     <View style={styles.container}>

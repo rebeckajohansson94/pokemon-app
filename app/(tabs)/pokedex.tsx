@@ -2,11 +2,19 @@ import PokedexList from "@/components/pokedex/PokedexList";
 import PokedexModal from "@/components/pokedex/PokedexModal";
 import ErrorMessage from "@/components/ui/ErrorMessage";
 import LoadingSpinner from "@/components/ui/LoadingSpinner";
+import { colors } from "@/constants/colors";
 import usePokedex from "@/hooks/usePokedex";
-import { ImageBackground, Pressable, Text, View } from "react-native";
+import {
+  ImageBackground,
+  Pressable,
+  StyleSheet,
+  Text,
+  View,
+} from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import pokedexBackGround from "../../assets/images/pokedex-bg.png";
 
+// Pokédex screen that displays a list of Pokémon and allows the user to view details in a modal and manage favourites.
 export default function Pokedex() {
   const {
     displayedList,
@@ -18,16 +26,19 @@ export default function Pokedex() {
     isFavourite,
     loading,
     error,
-  } = usePokedex(); // anropar usePokedex & destructar ut de states + funktioner jag behöver i komponenten
+  } = usePokedex(); // Calls the usePokedex hook and destructures the states and functions needed in this screen
 
   return (
     <ImageBackground
       source={pokedexBackGround}
-      style={{ flex: 1 }}
+      style={styles.background}
       resizeMode="cover"
     >
-      <SafeAreaView>
-        <Text>Pokedex</Text>
+      <SafeAreaView style={styles.safeArea}>
+        <Text style={styles.title}>Pokédex</Text>
+        <Text style={styles.subtitle}>
+          Explore Pokémon and save your favourites
+        </Text>
         {selectedPokemon && (
           <PokedexModal
             selectedPokemon={selectedPokemon}
@@ -36,12 +47,18 @@ export default function Pokedex() {
             isFavourite={isFavourite}
           />
         )}
-        <View>
-          <Pressable onPress={() => setShowFavourites(false)}>
-            <Text>List</Text>
+        <View style={styles.buttonContainer}>
+          <Pressable
+            onPress={() => setShowFavourites(false)}
+            style={styles.button}
+          >
+            <Text style={styles.buttonText}>List</Text>
           </Pressable>
-          <Pressable onPress={() => setShowFavourites(true)}>
-            <Text>Show Favourites</Text>
+          <Pressable
+            onPress={() => setShowFavourites(true)}
+            style={styles.button}
+          >
+            <Text style={styles.buttonText}>Favourites</Text>
           </Pressable>
         </View>
         {loading ? (
@@ -55,3 +72,46 @@ export default function Pokedex() {
     </ImageBackground>
   );
 }
+
+const styles = StyleSheet.create({
+  background: {
+    flex: 1,
+  },
+  safeArea: {
+    flex: 1,
+    paddingHorizontal: 16,
+    paddingTop: 10,
+  },
+  title: {
+    fontSize: 30,
+    fontWeight: "bold",
+    textAlign: "center",
+    color: colors.primary,
+    marginTop: 8,
+  },
+  subtitle: {
+    fontSize: 17,
+    textAlign: "center",
+    color: colors.accent,
+    marginTop: 6,
+    marginBottom: 20,
+    fontWeight: "bold",
+    fontStyle: "italic",
+  },
+  buttonContainer: {
+    flexDirection: "row",
+    justifyContent: "center",
+    marginBottom: 16,
+    gap: 30,
+  },
+  button: {
+    backgroundColor: colors.silver,
+    paddingVertical: 8,
+    paddingHorizontal: 28,
+    borderRadius: 10,
+  },
+  buttonText: {
+    color: colors.primary,
+    fontWeight: "800",
+  },
+});

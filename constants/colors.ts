@@ -1,3 +1,4 @@
+// Global color palette used across the app for consistent styling.
 export const colors = {
   primary: "#fefefe",
   secondary: "#000000",

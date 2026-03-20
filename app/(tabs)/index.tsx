@@ -13,6 +13,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import backgroundImage from "../../assets/images/home-bg.png";
 import pokemonLogo from "../../assets/images/pokemon-logo.png";
 
+// Home screen of the app, fetches and displays a random Pokémon and handles loading and error states.
 export default function Home() {
   const { pokemon, loading, error } = useHome();
 
@@ -62,7 +63,11 @@ const styles = StyleSheet.create({
   imageBackground: {
     flex: 1,
   },
-  main: { alignItems: "center", paddingHorizontal: 30, gap: 12 },
+  main: {
+    alignItems: "center",
+    paddingHorizontal: 30,
+    gap: 12,
+  },
   logo: {
     width: 260,
     height: 220,

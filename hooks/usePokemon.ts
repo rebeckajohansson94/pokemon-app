@@ -2,13 +2,13 @@ import { fetchPokemonDetails } from "@/services/api";
 import type { PokemonDetails } from "@/types/pokemon";
 import { useEffect, useState } from "react";
 
-// custom hook som samlar state + logik för pokemon och dess children
+// Custom hook that handles state and logic for the Pokémon roulette screen.
 export default function usePokemon() {
   const [pokemon, setPokemon] = useState<PokemonDetails | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
-  // används för att hämta random pokemon. async/await behövs för att vänta på att datan hämtas innan state uppdateras. (separerat från useEffect pga onPress kommer inte åt en async funktion inuti en useEffect)
+  // Fetches a random Pokémon and updates the state when the user presses the button.
   async function fetchRandomPokemon() {
     try {
       setLoading(true);
@@ -23,7 +23,7 @@ export default function usePokemon() {
     }
   }
 
-  // hämtar en random pokemon vid mount av sidan, fetchRandomPokemon återanvänds sedan vid knapptryckning
+  // Loads a random Pokémon when the screen first mounts.
   useEffect(() => {
     fetchRandomPokemon();
   }, []);

@@ -9,6 +9,7 @@ type PokedexModalProps = {
   isFavourite: boolean;
 };
 
+// Modal component used in the Pokédex screen, it is shown when a Pokémon is selected and displays the Pokémon details.
 export default function PokedexModal({
   selectedPokemon,
   closeModal,
@@ -18,7 +19,7 @@ export default function PokedexModal({
   return (
     <Modal animationType="slide" transparent={true}>
       <View style={styles.modal}>
-        {selectedPokemon && (
+        {selectedPokemon && ( // Only rendered when selectedPokemon contains data
           <PokemonCard
             pokemon={selectedPokemon}
             closeModal={closeModal}

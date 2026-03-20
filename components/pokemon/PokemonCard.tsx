@@ -21,6 +21,7 @@ type PokemonCardProps = {
   isFavourite?: boolean;
 };
 
+// Reusable card component that displays detailed Pokémon information, optional props allow it to be used in different screens, such as the modal or the roulette view.
 export default function PokemonCard({
   pokemon,
   closeModal,
@@ -30,10 +31,10 @@ export default function PokemonCard({
   return (
     <BlurView intensity={60} style={styles.blurFrame}>
       <View
-        style={[styles.card, { backgroundColor: getTypeColor(pokemon.type) }]}
+        style={[styles.card, { backgroundColor: getTypeColor(pokemon.type) }]} // Sets the card background color based on the Pokémon type
       >
         <View style={styles.row}>
-          {toggleFavourite && (
+          {toggleFavourite && ( // Favourite icon is only shown when the toggleFavourite prop is provided
             <Pressable onPress={() => toggleFavourite(pokemon)}>
               <Text style={styles.icon}>
                 <FontAwesome
@@ -44,7 +45,7 @@ export default function PokemonCard({
               </Text>
             </Pressable>
           )}
-          {closeModal && (
+          {closeModal && ( // Close icon is only shown when the closeModal prop is provided
             <Pressable onPress={closeModal}>
               <Text style={styles.icon}>
                 <AntDesign name="close" size={24} color="white" />

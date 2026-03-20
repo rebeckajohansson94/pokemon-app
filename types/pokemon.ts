@@ -13,5 +13,4 @@ export type PokemonDetails = PokemonListItem & {
   ability: string;
 };
 
-// delat upp typerna för att anpassas till de olika API-anropen.
-// använder & intersection  för att slå ihop typerna, detta för att följa DRY - så jag inte upprepar name & url i båda typerna
+// Types used to represent Pokémon data from different API responses across the app. Uses an intersection to reuse shared properties.

@@ -6,6 +6,7 @@ import { BlurView } from "expo-blur";
 import { Tabs } from "expo-router";
 import { StyleSheet } from "react-native";
 
+// Tab layout that defines the main navigation of the app, here I customize the tab bar styling, colors and icons for each screen.
 export default function TabsLayout() {
   return (
     <Tabs

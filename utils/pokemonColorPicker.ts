@@ -1,5 +1,4 @@
-// case-sats som ger en viss färg utefter pokemonens type, matchar färg med type som skickas i argumentet
-
+// Returns a color based on the Pokémon type using a switch statement, used for styling the Pokémon card.
 export function getTypeColor(type: string) {
   switch (type) {
     case "water":
