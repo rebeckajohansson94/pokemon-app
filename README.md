@@ -5,7 +5,8 @@ The purpose of the project was to practice building a structured mobile app, wor
 
 The app allows the user to generate random Pokémon, explore a Pokédex list and save favourite Pokémon.
 
-<img width="148" height="320" alt="image0" src="https://github.com/user-attachments/assets/2dcc8370-7f27-4e47-a338-d2000a18fdd8" /> <img width="148" height="320" alt="image1" src="https://github.com/user-attachments/assets/49364fef-e43a-4038-bbd5-30338fe38f91" /> <img width="148" height="320" alt="image2" src="https://github.com/user-attachments/assets/3173e2da-03eb-4c91-86ff-3c24c7d75be8" />
+<img width="148" height="320" alt="image0" src="https://github.com/user-attachments/assets/2dcc8370-7f27-4e47-a338-d2000a18fdd8" /> <img width="148" height="320" alt="image1" src="https://github.com/user-attachments/assets/49364fef-e43a-4038-bbd5-30338fe38f91" /> <img width="148" height="320" alt="image" src="https://github.com/user-attachments/assets/72a10401-49f5-4cf0-bbd1-79eee52c7ff8" />
+
 
 ## Features
 
